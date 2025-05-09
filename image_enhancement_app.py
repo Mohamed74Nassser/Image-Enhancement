@@ -133,3 +133,17 @@ enhancement_type = st.selectbox("Select enhancement type", [
 else:
     st.warning("No image uploaded yet. Please upload an image to display it.")
 
+# Display credits at the bottom
+st.markdown(""" 
+    <h4 style='text-align: center;'>
+        <br>
+        <br>
+        Developed By 
+        <br>
+        طارق ممدوح - محمد ناصر - محمد محمود محمد محمود - ملك محمد عثمان - عائشة نجاح - إخلاص صبحي
+        <br>
+        202203664 - 202206090 - 202200570 - 202203785 - 202202236 - 202202554
+    </h4>
+""", unsafe_allow_html=True)
+
+

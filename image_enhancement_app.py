@@ -31,6 +31,14 @@ def clahe_histogram_equalization(image):
     cl = clahe.apply(l)
     return cv2.cvtColor(cv2.merge((cl, a, b)), cv2.COLOR_LAB2RGB)
 
+# Apply Gaussian Blur to reduce image noise
+def gaussian_denoising(image, kernel_size=(5,5), sigma=1.5):
+    return cv2.GaussianBlur(image, kernel_size, sigma)
+
+# Apply Median Blur to remove salt-and-pepper noise
+def median_denoising(image, kernel_size=5):
+    return cv2.medianBlur(image, kernel_size)
+
 
 # Set Streamlit title and image uploader
 st.title("Image Enhancement with OpenCV")
@@ -72,4 +80,13 @@ enhancement_type = st.selectbox("Select enhancement type", [
 
     elif enhancement_type == 'CLAHE Equalization':
     enhanced_image = clahe_histogram_equalization(image_np)
+
+    elif enhancement_type == 'Gaussian Denoising':
+        kernel_size = st.slider("Kernel Size (odd)", 1, 21, 5, step=2)
+        sigma = st.slider("Sigma", 0.1, 5.0, 1.5)
+        enhanced_image = gaussian_denoising(image_np, (kernel_size, kernel_size), sigma)
+    
+    elif enhancement_type == 'Median Denoising':
+        kernel_size = st.slider("Kernel Size (odd)", 1, 21, 5, step=2)
+        enhanced_image = median_denoising(image_np, kernel_size)
 

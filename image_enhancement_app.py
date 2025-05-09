@@ -81,3 +81,12 @@ enhancement_type = st.selectbox("Select enhancement type", [
     elif enhancement_type == 'CLAHE Equalization':
     enhanced_image = clahe_histogram_equalization(image_np)
 
+    elif enhancement_type == 'Gaussian Denoising':
+        kernel_size = st.slider("Kernel Size (odd)", 1, 21, 5, step=2)
+        sigma = st.slider("Sigma", 0.1, 5.0, 1.5)
+        enhanced_image = gaussian_denoising(image_np, (kernel_size, kernel_size), sigma)
+    
+    elif enhancement_type == 'Median Denoising':
+        kernel_size = st.slider("Kernel Size (odd)", 1, 21, 5, step=2)
+        enhanced_image = median_denoising(image_np, kernel_size)
+

@@ -27,3 +27,14 @@ def histogram_equalization(image):
 # Set Streamlit title and image uploader
 st.title("Image Enhancement with OpenCV")
 uploaded_file = st.file_uploader("Upload an image", type=["jpg", "png", "jpeg"])
+
+# Resize uploaded image to fit within 600 pixels if it's too large
+if uploaded_file is not None:
+    image = Image.open(uploaded_file)
+    image_np = np.array(image.convert("RGB"))
+
+    max_dim = 600
+    if max(image_np.shape[:2]) > max_dim:
+        scale = max_dim / max(image_np.shape[:2])
+        image_np = cv2.resize(image_np, (int(image_np.shape[1]*scale), int(image_np.shape[0]*scale)))
+

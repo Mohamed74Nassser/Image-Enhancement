@@ -45,4 +45,18 @@ if uploaded_file is not None:
     if max(image_np.shape[:2]) > max_dim:
         scale = max_dim / max(image_np.shape[:2])
         image_np = cv2.resize(image_np, (int(image_np.shape[1]*scale), int(image_np.shape[0]*scale)))
+        
+
+# Create dropdown menu to select image enhancement technique
+enhancement_type = st.selectbox("Select enhancement type", [
+    'Adjust Brightness',
+    'Contrast Stretching',
+    'Histogram Equalization',
+    'CLAHE Equalization',
+    'Gaussian Denoising',
+    'Median Denoising',
+    'Sharpening',
+    'Color Correction',
+    'White Balance'
+])
 

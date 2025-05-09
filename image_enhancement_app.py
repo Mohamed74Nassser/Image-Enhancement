@@ -38,3 +38,13 @@ if uploaded_file is not None:
         scale = max_dim / max(image_np.shape[:2])
         image_np = cv2.resize(image_np, (int(image_np.shape[1]*scale), int(image_np.shape[0]*scale)))
 
+    if enhancement_type == 'Adjust Brightness':
+        beta = st.slider("Brightness Level", -100, 100, 30)
+        enhanced_image = adjust_brightness(image_np, beta)
+
+    elif enhancement_type == 'Contrast Stretching':
+        enhanced_image = contrast_stretching(image_np)
+
+    elif enhancement_type == 'Histogram Equalization':
+        enhanced_image = histogram_equalization(image_np)
+

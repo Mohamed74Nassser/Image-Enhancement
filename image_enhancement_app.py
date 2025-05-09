@@ -31,6 +31,10 @@ def clahe_histogram_equalization(image):
     cl = clahe.apply(l)
     return cv2.cvtColor(cv2.merge((cl, a, b)), cv2.COLOR_LAB2RGB)
 
+# Apply Gaussian Blur to reduce image noise
+def gaussian_denoising(image, kernel_size=(5,5), sigma=1.5):
+    return cv2.GaussianBlur(image, kernel_size, sigma)
+
 
 # Set Streamlit title and image uploader
 st.title("Image Enhancement with OpenCV")

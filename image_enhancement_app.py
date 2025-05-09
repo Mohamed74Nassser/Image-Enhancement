@@ -35,6 +35,10 @@ def clahe_histogram_equalization(image):
 def gaussian_denoising(image, kernel_size=(5,5), sigma=1.5):
     return cv2.GaussianBlur(image, kernel_size, sigma)
 
+# Apply Median Blur to remove salt-and-pepper noise
+def median_denoising(image, kernel_size=5):
+    return cv2.medianBlur(image, kernel_size)
+
 
 # Set Streamlit title and image uploader
 st.title("Image Enhancement with OpenCV")

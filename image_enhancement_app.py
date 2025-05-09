@@ -118,3 +118,18 @@ enhancement_type = st.selectbox("Select enhancement type", [
     elif enhancement_type == 'Color Correction':
         saturation_factor = st.slider("Saturation Level", 0.0, 3.0, 1.5)
         enhanced_image = color_correction(image_np, saturation_factor)
+
+    elif enhancement_type == 'White Balance':
+        enhanced_image = white_balance(image_np)
+    
+    col1, col2 = st.columns(2)
+    with col1:
+        st.markdown("### Original Image ")
+        st.image(image, width=500)
+    with col2:
+        st.markdown(f"### Enhanced: {enhancement_type} ")
+        st.image(enhanced_image, width=500)
+
+else:
+    st.warning("No image uploaded yet. Please upload an image to display it.")
+

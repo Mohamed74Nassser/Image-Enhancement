@@ -17,6 +17,12 @@ def contrast_stretching(image):
     stretched = ((gray - min_val) * (255.0 / (max_val - min_val))).astype(np.uint8)
     return cv2.cvtColor(stretched, cv2.COLOR_GRAY2RGB)
 
+# Apply global histogram equalization to enhance contrast
+def histogram_equalization(image):
+    gray = cv2.cvtColor(image, cv2.COLOR_RGB2GRAY)
+    equalized = cv2.equalizeHist(gray)
+    return cv2.cvtColor(equalized, cv2.COLOR_GRAY2RGB)
+
 
 # Set Streamlit title and image uploader
 st.title("Image Enhancement with OpenCV")

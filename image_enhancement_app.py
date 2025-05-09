@@ -23,6 +23,14 @@ def histogram_equalization(image):
     equalized = cv2.equalizeHist(gray)
     return cv2.cvtColor(equalized, cv2.COLOR_GRAY2RGB)
 
+# Apply CLAHE (Contrast Limited Adaptive Histogram Equalization)
+def clahe_histogram_equalization(image):
+    lab = cv2.cvtColor(image, cv2.COLOR_RGB2LAB)
+    l, a, b = cv2.split(lab)
+    clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(8, 8))
+    cl = clahe.apply(l)
+    return cv2.cvtColor(cv2.merge((cl, a, b)), cv2.COLOR_LAB2RGB)
+
 
 # Set Streamlit title and image uploader
 st.title("Image Enhancement with OpenCV")

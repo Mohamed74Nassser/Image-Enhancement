@@ -38,7 +38,19 @@ def gaussian_denoising(image, kernel_size=(5,5), sigma=1.5):
 # Apply Median Blur to remove salt-and-pepper noise
 def median_denoising(image, kernel_size=5):
     return cv2.medianBlur(image, kernel_size)
+    
+# Sharpen the image using a custom kernel to enhance edges
+def sharpen_image(image):
+    kernel = np.array([[0, -1, 0],
+                       [-1, 5, -1],
+                       [0, -1, 0]])
+    return cv2.filter2D(image, -1, kernel)
 
+# Enhance image colors by adjusting the saturation in HSV color space
+def color_correction(image, saturation_factor=1.5):
+    hsv = cv2.cvtColor(image, cv2.COLOR_RGB2HSV)
+    hsv[:, :, 1] = np.clip(hsv[:, :, 1] * saturation_factor, 0, 255)
+    return cv2.cvtColor(hsv, cv2.COLOR_HSV2RGB)
 
 # Set Streamlit title and image uploader
 st.title("Image Enhancement with OpenCV")
@@ -90,3 +102,9 @@ enhancement_type = st.selectbox("Select enhancement type", [
         kernel_size = st.slider("Kernel Size (odd)", 1, 21, 5, step=2)
         enhanced_image = median_denoising(image_np, kernel_size)
 
+    elif enhancement_type == 'Sharpening':
+        enhanced_image = sharpen_image(image_np)
+    
+    elif enhancement_type == 'Color Correction':
+        saturation_factor = st.slider("Saturation Level", 0.0, 3.0, 1.5)
+        enhanced_image = color_correction(image_np, saturation_factor)

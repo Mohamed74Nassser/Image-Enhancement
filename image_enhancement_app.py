@@ -60,3 +60,13 @@ enhancement_type = st.selectbox("Select enhancement type", [
     'White Balance'
 ])
 
+    if enhancement_type == 'Adjust Brightness':
+        beta = st.slider("Brightness Level", -100, 100, 30)
+        enhanced_image = adjust_brightness(image_np, beta)
+
+    elif enhancement_type == 'Contrast Stretching':
+        enhanced_image = contrast_stretching(image_np)
+
+    elif enhancement_type == 'Histogram Equalization':
+        enhanced_image = histogram_equalization(image_np)
+

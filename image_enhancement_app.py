@@ -38,6 +38,13 @@ def gaussian_denoising(image, kernel_size=(5,5), sigma=1.5):
 # Apply Median Blur to remove salt-and-pepper noise
 def median_denoising(image, kernel_size=5):
     return cv2.medianBlur(image, kernel_size)
+    
+# Sharpen the image using a custom kernel to enhance edges
+def sharpen_image(image):
+    kernel = np.array([[0, -1, 0],
+                       [-1, 5, -1],
+                       [0, -1, 0]])
+    return cv2.filter2D(image, -1, kernel)
 
 
 # Set Streamlit title and image uploader

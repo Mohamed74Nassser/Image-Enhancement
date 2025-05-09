@@ -52,6 +52,16 @@ def color_correction(image, saturation_factor=1.5):
     hsv[:, :, 1] = np.clip(hsv[:, :, 1] * saturation_factor, 0, 255)
     return cv2.cvtColor(hsv, cv2.COLOR_HSV2RGB)
 
+# Adjust white balance based on LAB color statistics to correct color tones
+def white_balance(image):
+    lab = cv2.cvtColor(image, cv2.COLOR_RGB2LAB).astype(np.float32)
+    avg_a = np.average(lab[:, :, 1])
+    avg_b = np.average(lab[:, :, 2])
+    lab[:, :, 1] -= ((avg_a - 128) * (lab[:, :, 0] / 255.0) * 1.1)
+    lab[:, :, 2] -= ((avg_b - 128) * (lab[:, :, 0] / 255.0) * 1.1)
+    lab = np.clip(lab, 0, 255).astype(np.uint8)
+    return cv2.cvtColor(lab, cv2.COLOR_LAB2RGB)
+
 # Set Streamlit title and image uploader
 st.title("Image Enhancement with OpenCV")
 uploaded_file = st.file_uploader("Upload an image", type=["jpg", "png", "jpeg"])

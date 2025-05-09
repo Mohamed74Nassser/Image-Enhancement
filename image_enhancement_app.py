@@ -69,3 +69,7 @@ enhancement_type = st.selectbox("Select enhancement type", [
 
     elif enhancement_type == 'Histogram Equalization':
         enhanced_image = histogram_equalization(image_np)
+
+    elif enhancement_type == 'CLAHE Equalization':
+    enhanced_image = clahe_histogram_equalization(image_np)
+

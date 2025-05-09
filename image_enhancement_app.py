@@ -46,6 +46,11 @@ def sharpen_image(image):
                        [0, -1, 0]])
     return cv2.filter2D(image, -1, kernel)
 
+# Enhance image colors by adjusting the saturation in HSV color space
+def color_correction(image, saturation_factor=1.5):
+    hsv = cv2.cvtColor(image, cv2.COLOR_RGB2HSV)
+    hsv[:, :, 1] = np.clip(hsv[:, :, 1] * saturation_factor, 0, 255)
+    return cv2.cvtColor(hsv, cv2.COLOR_HSV2RGB)
 
 # Set Streamlit title and image uploader
 st.title("Image Enhancement with OpenCV")

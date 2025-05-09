@@ -102,3 +102,9 @@ enhancement_type = st.selectbox("Select enhancement type", [
         kernel_size = st.slider("Kernel Size (odd)", 1, 21, 5, step=2)
         enhanced_image = median_denoising(image_np, kernel_size)
 
+    elif enhancement_type == 'Sharpening':
+        enhanced_image = sharpen_image(image_np)
+    
+    elif enhancement_type == 'Color Correction':
+        saturation_factor = st.slider("Saturation Level", 0.0, 3.0, 1.5)
+        enhanced_image = color_correction(image_np, saturation_factor)

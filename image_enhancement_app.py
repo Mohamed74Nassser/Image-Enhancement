@@ -75,20 +75,19 @@ if uploaded_file is not None:
     if max(image_np.shape[:2]) > max_dim:
         scale = max_dim / max(image_np.shape[:2])
         image_np = cv2.resize(image_np, (int(image_np.shape[1]*scale), int(image_np.shape[0]*scale)))
-        
 
-# Create dropdown menu to select image enhancement technique
-enhancement_type = st.selectbox("Select enhancement type", [
-    'Adjust Brightness',
-    'Contrast Stretching',
-    'Histogram Equalization',
-    'CLAHE Equalization',
-    'Gaussian Denoising',
-    'Median Denoising',
-    'Sharpening',
-    'Color Correction',
-    'White Balance'
-])
+    # Create dropdown menu to select image enhancement technique
+    enhancement_type = st.selectbox("Select enhancement type", [
+        'Adjust Brightness',
+        'Contrast Stretching',
+        'Histogram Equalization',
+        'CLAHE Equalization',
+        'Gaussian Denoising',
+        'Median Denoising',
+        'Sharpening',
+        'Color Correction',
+        'White Balance'
+    ])
 
     if enhancement_type == 'Adjust Brightness':
         beta = st.slider("Brightness Level", -100, 100, 30)
@@ -101,27 +100,27 @@ enhancement_type = st.selectbox("Select enhancement type", [
         enhanced_image = histogram_equalization(image_np)
 
     elif enhancement_type == 'CLAHE Equalization':
-    enhanced_image = clahe_histogram_equalization(image_np)
+        enhanced_image = clahe_histogram_equalization(image_np)
 
     elif enhancement_type == 'Gaussian Denoising':
         kernel_size = st.slider("Kernel Size (odd)", 1, 21, 5, step=2)
         sigma = st.slider("Sigma", 0.1, 5.0, 1.5)
         enhanced_image = gaussian_denoising(image_np, (kernel_size, kernel_size), sigma)
-    
+
     elif enhancement_type == 'Median Denoising':
         kernel_size = st.slider("Kernel Size (odd)", 1, 21, 5, step=2)
         enhanced_image = median_denoising(image_np, kernel_size)
 
     elif enhancement_type == 'Sharpening':
         enhanced_image = sharpen_image(image_np)
-    
+
     elif enhancement_type == 'Color Correction':
         saturation_factor = st.slider("Saturation Level", 0.0, 3.0, 1.5)
         enhanced_image = color_correction(image_np, saturation_factor)
 
     elif enhancement_type == 'White Balance':
         enhanced_image = white_balance(image_np)
-    
+
     col1, col2 = st.columns(2)
     with col1:
         st.markdown("### Original Image ")

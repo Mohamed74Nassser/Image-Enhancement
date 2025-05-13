@@ -25,7 +25,7 @@ def histogram_equalization(image):
 
 # Apply CLAHE (Contrast Limited Adaptive Histogram Equalization)
 def clahe_histogram_equalization(image):
-    lab = cv2.cvtColor(image, cv2.COLOR_RGB2LAB)
+    lab = cv2.cvtColor(image, cv2.COLOR_RGB2LAB) ## L=>Lightness, A=>(green-red), B=>(blue-yellow)	الفرق بين اللونين
     l, a, b = cv2.split(lab)
     clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(8, 8))
     cl = clahe.apply(l)
@@ -49,7 +49,9 @@ def sharpen_image(image):
 # Enhance image colors by adjusting the saturation in HSV color space
 def color_correction(image, saturation_factor=1.5):
     hsv = cv2.cvtColor(image, cv2.COLOR_RGB2HSV)
-    hsv[:, :, 1] = np.clip(hsv[:, :, 1] * saturation_factor, 0, 255)
+    hsv[:, :, 1] = np.clip(hsv[:, :, 1] * saturation_factor, 0, 255) 
+    ## H = Hue (لون) S = Saturation (تشبع اللون) V = Value (الإضاءة)
+    ## hsv[:, :, 1] => row = الصف col = العمود channel = القناة (0 أو 1 أو 2)
     return cv2.cvtColor(hsv, cv2.COLOR_HSV2RGB)
 
 # Adjust white balance based on LAB color statistics to correct color tones
@@ -144,5 +146,3 @@ st.markdown("""
         202203664 - 202206090 - 202200570 - 202203785 - 202202236 - 202202554
     </h4>
 """, unsafe_allow_html=True)
-
-
